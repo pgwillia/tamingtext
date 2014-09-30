@@ -10,7 +10,7 @@ describe "play with open-nlp" do
 
     tokenizer   = OpenNLP::TokenizerME.new
     segmenter   = OpenNLP::SentenceDetectorME.new
-    ner_models  = ['person']
+    ner_models  = ['person', 'organization', 'location']
 
     ner_finders = ner_models.map do |model|
       OpenNLP::NameFinderME.new("en-ner-#{model}.bin")
@@ -36,6 +36,8 @@ describe "play with open-nlp" do
     end # end sentences
     expect( named_entities).to include([["Inspector", "Duncan"], "person"])
     expect( named_entities).to include([["John", "Jackson"], "person"])
+    expect( named_entities).to include([["Toronto"], "location"])
+    expect( named_entities).to include([["Union"], "organization"])
   end # end it
 end
 
